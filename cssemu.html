@@ -1,0 +1,245 @@
+<html>
+
+<head>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js'> </script>
+
+<style>
+
+html,body { margin:0; padding:0; height:100%; width:100%; overflow: hidden;}
+
+
+
+#editor {
+
+    height: 100%;
+
+    width:50%;
+
+    display:inline-block;
+
+}
+
+
+
+#container {
+
+	height:100%;
+
+	width:auto;
+
+  white-space : nowrap; 
+
+  overflow : hidden;
+
+  position:relative;
+
+}
+
+
+
+#iframe {
+
+	height:100%;
+
+	display:inline-block;
+
+	width:50%;
+
+}
+
+
+
+/* disable tag matching */
+
+.ace_editor .ace_marker-layer .ace_bracket { display: none }
+
+
+
+</style>
+
+</head>
+
+<body onload="ready()">
+
+
+
+	<div id='container'>
+
+
+
+  <div id="editor">
+
+  </div>
+
+
+
+  <iframe id='iframe' frameBorder="0">
+
+  </iframe>
+
+</div>
+
+
+
+	<script>
+
+
+
+function update()
+
+{
+
+	var idoc = document.getElementById('iframe').contentWindow.document;
+
+
+
+	idoc.open();
+
+	idoc.write(editor.getValue());
+
+	idoc.close();
+
+}
+
+
+
+function setupEditor()
+
+{
+
+  window.editor = ace.edit("editor");
+
+  editor.setTheme("ace/theme/monokai");
+
+  editor.getSession().setMode("ace/mode/html");
+
+  editor.setValue(`<!DOCTYPE html>
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* The device with borders */
+.smartphone {
+  position: relative;
+  width: 360px;
+  height: 640px;
+  margin: auto;
+  border: 16px black solid;
+  border-top-width: 60px;
+  border-bottom-width: 60px;
+  border-radius: 36px;
+}
+
+/* The horizontal line on the top of the device */
+.smartphone:before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 5px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 10px;
+}
+
+/* The circle on the bottom of the device */
+.smartphone:after {
+  content: '';
+  display: block;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 50%;
+  bottom: -65px;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 50%;
+}
+
+/* The screen (or content) of the device */
+.smartphone .content {
+  width: 360px;
+  height: 640px;
+  background: white;
+}
+</style>
+</head>
+<body>
+
+<div class="smartphone">
+  <div class="content">
+    <h1 style="text-align:center;color:#123456">Made By Hitesh</h1>
+  </div>
+</div>
+
+</body>
+</html>`,1); //1 = moves cursor to end
+
+
+
+  editor.getSession().on('change', function() {
+
+    update();
+
+  });
+
+
+
+  editor.focus();
+
+  
+
+  
+
+  editor.setOptions({
+
+    fontSize: "16pt",
+
+    showLineNumbers: false,
+
+    showGutter: false,
+
+    vScrollBarAlwaysVisible:true,
+
+    enableBasicAutocompletion: false, enableLiveAutocompletion: false
+
+  });
+
+
+
+  editor.setShowPrintMargin(false);
+
+  editor.setBehavioursEnabled(false);
+
+}
+
+
+
+setupEditor();
+
+update();
+
+
+
+		function ready() {
+
+			// body...
+
+			setupEditor();
+
+			update();
+
+		}
+
+	</script>
+
+</body>
+
+</html>
+
+
+
